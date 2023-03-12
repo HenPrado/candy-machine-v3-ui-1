@@ -18,7 +18,7 @@ const key = Keypair.fromSecretKey(Uint8Array.from(require("./key.json")));
 const { number, creators, ...config } = require("./config.json");
 
 const metaplex = Metaplex.make(
-  new Connection("https://metaplex.devnet.rpcpool.com/")
+  new Connection("https://api.devnet.solana.com")
 ).use(keypairIdentity(key));
 
 const allowList = require("./allowlist.json");
@@ -35,7 +35,7 @@ const mintingWallet = metaplex.identity().publicKey;
   console.log(
     mintingWallet,
     allowList,
-    // merkleProof,
+    merkleProof,
     merkleProof.map((p) => new PublicKey(p).toString())
   );
   if (!merkleProof.length) return console.log("User is not in allowed list");
@@ -50,7 +50,7 @@ const mintingWallet = metaplex.identity().publicKey;
   //   });
 
   //   return;
-  const group = "waoed";
+  const group = "PV";
   const transactionBuilders: TransactionBuilder[] = [
     callCandyGuardRouteBuilder(metaplex, {
       candyMachine,
